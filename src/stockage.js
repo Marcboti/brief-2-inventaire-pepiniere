@@ -5,10 +5,12 @@ import { readFile, writeFile } from 'node:fs/promises';
 // Lit le fichier JSON et renvoie le tableau qu'il contient.
 // Si le fichier n'existe pas ou n'est pas du JSON valide, laissez l'erreur remonter : le menu l'affichera.
 export async function chargerJson(chemin) {
-  throw new Error('TODO : coder chargerJson dans src/stockage.js');
+  const contenu = await readFile(chemin, 'utf8');// Le contenu est une chaîne de caractères, on la convertit en tableau d'objets.
+  return JSON.parse(contenu); // JSON.parse transform: le texte en données JavaScript.
 }
 
 // Écrit le tableau dans le fichier, au format JSON indenté de 2 espaces.
 export async function enregistrerJson(chemin, enregistrements) {
-  throw new Error('TODO : coder enregistrerJson dans src/stockage.js');
+  const contenu = JSON.stringify(enregistrements, null, 2); // JSON.stringify transform: les données JavaScript en texte.
+  await writeFile(chemin, contenu, 'utf8'); // Écrit le texte dans le fichier.
 }

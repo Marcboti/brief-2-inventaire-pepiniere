@@ -5,7 +5,7 @@
 | Champ | Signification | Type | Règle de validation | Unité | Exemple |
 | --- | --- | --- | --- | --- | --- |
 | `id` | Identifiant unique | Texte | non vide, absent des données | — | N01 |
-| nomCommun | Nom commun de l'espèce végétale|Texte| Nom vid, absent des données | — | cacao |
+| nomCommun | Nom commun de l'espèce végétale|Texte| Non vide, absence des données | — | cacao |
 | Groupe | Groupe botanique de l'espèce  | Texte | Doit être angiosperme ou gymnosperme| — | angiosperme|
 | nombrePlants | Quantité de plants disponibles dans la pépinière | Nombre entier | Doit être positive ou égale à zéro | plants | 30 |
 | dateReleve | Date à laquelle la quantité a été relevée | la date au format AAA-MM-JJ | Date réelle et format valide | — | 2026-10-24|
