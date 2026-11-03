@@ -4,7 +4,7 @@
 
 ## Contexte
 
-✏️ *En cinq à huit phrases : qui utilise l'outil (son métier, son geste professionnel), son besoin, ce qu'il saisit, ce que le programme lui affiche, ce que l'outil ne fait pas.*
+✏️ *L'outil est destiné au responsable d'une pépinière pédagogique chargé de suivre et de gérer les stocks de plants. Il doit identifier les différentes espèces végétales et connaître les quantités disponibles. Il a besoin d'un outil simple pour organiser les informations et faciliter la gestion de son inventaire. Il saisit l'identifiant de l'espèce, son nom commun, son groupe botanique, le nombre de plants et la date du relevé. Le programme lui permet d'afficher la liste des espèces, d'ajouter de nouveaux plants, de rechercher une espèce et de trier les stocks selon les quantités. Il lui fournit également une synthèse des quantités disponibles et signale les espèces dont le stock est faible. Cependant, l'outil ne produit pas de plants, ne diagnostique pas les maladies des végétaux et ne surveille pas automatiquement leur croissance.*
 
 ## Prérequis et lancement
 
