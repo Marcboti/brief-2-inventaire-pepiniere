@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "test": "node --test",
+    "test": "node --test \"test/*.test.js\"",
     "test:registre": "node --test test/registre.test.js",
     "test:recherche": "node --test test/recherche.test.js",
     "test:synthese": "node --test test/synthese.test.js",
