@@ -7,7 +7,17 @@ Prenom : ELLA RODRIGUE
 Compte GitHub : techsene
 
 1. **Une fonction que j'ai écrite**, et comment elle marche : ✏️
-J'ai 
+async function tester() {
+    ouvrirSaisie();
+    const reponse = await demander('Tape le chiffre 2 :');
+
+    console.log('Reponse récupérée :', reponse);
+
+    fermerSaisie();
+}
+
+c'est fonction tester m'a permis de verifier le fonctionnnement du système de saisie de l'utilisateur.
+elle commence par ouvrier la saisie, puis demande à l'utilisateur de faire entre une valeur.  une fois la valeur entrer elle affiche la reponse dans le terminal et ferme le système de saisi
 
 2. **Une difficulté, et sa solution** : ✏️
 L'une des principale dificultés à été la comprehension de la logique de programmation en JavaScript notamment les tableaux, les objets, les fonctions et aussi du parcours de l'exercice.
