@@ -11,9 +11,7 @@
 | --- | --- | --- | --- |
 | Vérification de l'application (nmp test) | que les tests s'exécutent | les tests reuissis apparaissent en vert | RODRIGUE |
 | lancement de l'applicement de l'application (node app.js) | verifier que le menu principal s'execute sans erreur| le menu affiche 11 espèces chargées | RODRIGUE |
-| ✏️ | | | |
-| ✏️ | | | |
-| ✏️ | | | |
-| ✏️ | | | |
+| Supprimer O02 | Plant O02 introuvable | OK | Marc Boti |
+| Recherche nom "cacao" | 1 espèce (N01 \| cacao \| angiosperme \| 30 plants) | OK | Marc Boti |
 
-**Sur un autre poste** (`git clone`, `node app.js`, `npm test`, en suivant le README) : ✏️
+**Sur un autre poste** (`git clone`, `node app.js`, `npm test`, en suivant le README) : Marc BOTI
