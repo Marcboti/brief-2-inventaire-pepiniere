@@ -75,5 +75,12 @@
     "groupe": "angiosperme",
     "nombrePlants": 15,
     "dateReleve": "2026-11-03"
+  },
+  {
+    "id": "N12",
+    "nomCommun": "avocatier",
+    "groupe": "angiosperme",
+    "nombrePlants": 25,
+    "dateReleve": "2026-11-04"
   }
 ]
