@@ -1,16 +1,21 @@
 // Inventaire de la pépinière — point d'entrée : le menu.
 // Comportement et textes imposés : fiches/3-ajouter-lister.md.
 // Lancer : node app.js
+
+// Recupération dec fonction dans les fichiers
 import { demander, fermerSaisie, ouvrirSaisie } from './src/saisie.js';
 import { chargerJson, enregistrerJson } from './src/stockage.js';
 import { GROUPES, ajouterPlant, formaterPlant, listerPlants, trouverParId } from './src/registre.js';
 import { filtrerParGroupe, rechercherParNom, trierParNombrePlants } from './src/recherche.js';
+
 import {
   groupeLePlusFourni,
   modifierPlant,
   supprimerPlant,
   trierParNombrePlantsDecroissant
 } from './src/bonus.js';
+
+// Importation des fonctions de synthèse
 import {
   SEUIL_STOCK_FAIBLE,
   especeLaPlusAbondante,
@@ -19,31 +24,36 @@ import {
   totalPlants
 } from './src/synthese.js';
 
+// le chemen du fichier de données
 const FICHIER_DONNEES = 'donnees/plants.json';
 
+// message d'erreur lisible
 function messageErreur(erreur) {
   return erreur instanceof Error ? erreur.message : String(erreur);
 }
-
+// la fonction principale main()
 async function main() {
   ouvrirSaisie();
 
+  //instruction du programme
   try {
     console.log('==================================================');
     console.log('   INVENTAIRE DE LA PÉPINIÈRE');
     console.log('   Pépinière pédagogique');
     console.log('==================================================');
 
+    // Chargement des données qui represente une partie fondamentale du programme
     let plants = [];
-    try {
-      plants = await chargerJson(FICHIER_DONNEES);
+    try { // code pouvant générer une erreur
+      plants = await chargerJson(FICHIER_DONNEES); // lecture du fichier JSON
       console.log(`${plants.length} espèce(s) chargée(s) depuis ${FICHIER_DONNEES}.`);
-    } catch (erreur) {
+    } catch (erreur) { // gestion de l'erreur
       console.log(
         `Impossible de lire ${FICHIER_DONNEES} : ${messageErreur(erreur)}. L'inventaire démarre vide.`
       );
     }
 
+    // la boucle de menu
     let continuer = true;
 
     while (continuer) {
@@ -57,14 +67,16 @@ async function main() {
       console.log('7. Modifier un plant');
       console.log('0. Quitter');
 
+      // Le choix de l'utilisteur
       const choix = await demander('Votre choix : ');
 
+      // c'est la gestion du programme
       if (choix === null || choix === '0') {
         console.log('Au revoir !');
         continuer = false;
         continue;
       }
-
+      // les fonctionalités
       try {
         if (choix === '1') {
           console.log('\n--- Ajouter un plant ---');
@@ -75,7 +87,7 @@ async function main() {
           const groupe = await demander('Groupe botanique (angiosperme ou gymnosperme) : ');
           const nombrePlants = await demander('Nombre de plants (entier) : ');
           const dateReleve = await demander('Date du relevé (AAAA-MM-JJ) : ');
-
+          // verification des annulations
           if (
             id === null ||
             nomCommun === null ||
@@ -85,7 +97,7 @@ async function main() {
           ) {
             continue;
           }
-
+          // construction de l'objet JavaScript
           const saisie = {
             id: id.toUpperCase(),
             nomCommun: nomCommun.toLowerCase(),
@@ -94,7 +106,7 @@ async function main() {
             dateReleve
           };
           const erreurs = ajouterPlant(plants, saisie);
-
+          // verification des regles d'ajout
           if (erreurs.length > 0) {
             console.log('Ajout refusé :');
             for (const erreur of erreurs) {
@@ -110,6 +122,7 @@ async function main() {
             }
             console.log(`Plant ${saisie.id} ajouté. L'inventaire compte ${plants.length} espèce(s).`);
           }
+          // mode d'inventaire 2 permet d'afficher le nombre d'expèce
         } else if (choix === '2') {
           console.log(`\n--- Inventaire (${plants.length} espèce(s)) ---`);
           console.log(listerPlants(plants));
@@ -127,7 +140,7 @@ async function main() {
             if (code === null) {
               continue;
             }
-
+            // recherche par id
             const codeNormalise = code.toUpperCase();
             const plant = trouverParId(plants, codeNormalise);
             if (plant === undefined) {
@@ -160,6 +173,7 @@ async function main() {
           } else {
             console.log('Choix inconnu : retour au menu.');
           }
+          // cette partie permet de faire un tri des plants
         } else if (choix === '4') {
           console.log('\n--- Trier ---');
           console.log('1. Par nombre de plants croissant');
@@ -175,6 +189,8 @@ async function main() {
           } else {
             console.log('Choix inconnu : retour au menu.');
           }
+
+          // synthèse des quantités
         } else if (choix === '5') {
           console.log("\n--- Synthèse de l'inventaire ---");
           console.log(`Nombre d'espèces : ${plants.length}`);
@@ -185,19 +201,19 @@ async function main() {
           for (const [groupe, valeurs] of Object.entries(synthese)) {
             console.log(`  ${groupe} : ${valeurs.especes} espèce(s), ${valeurs.plants} plants`);
           }
-
+          // recherche de l'espèce la plus founi
           const groupePlusFourni = groupeLePlusFourni(plants);
           if (groupePlusFourni === null) {
             console.log('Groupe le plus fourni : aucune donnée');
           } else {
             console.log(`Groupe le plus fourni : ${groupePlusFourni.groupe} (${groupePlusFourni.plants} plants)`);
           }
-
+          // recherche de l'expèce la plus abondante
           const abondante = especeLaPlusAbondante(plants);
           console.log(
             `Espèce la plus abondante : ${abondante ? formaterPlant(abondante) : 'aucune donnée'}`
           );
-
+          // stock faible defini dans synthèse
           const faibles = stocksFaibles(plants, SEUIL_STOCK_FAIBLE);
           console.log(`Stocks faibles (≤ ${SEUIL_STOCK_FAIBLE} plants) : ${faibles.length}`);
           for (const plant of faibles) {
@@ -222,8 +238,10 @@ async function main() {
               plants.push(plantSupprime);
               throw erreur;
             }
+            // fonctionnalitée de suppression
             console.log(`Plant ${idNormalise} supprimé. L'inventaire compte ${plants.length} espèce(s).`);
           }
+          // modifier un plant
         } else if (choix === '7') {
           const id = await demander('Identifiant : ');
           if (id === null) {
@@ -245,6 +263,7 @@ async function main() {
               console.log(`  - ${erreur}`);
             }
           } else {
+            // gestion des messages d'erreur
             try {
               await enregistrerJson(FICHIER_DONNEES, plants);
             } catch (erreur) {
@@ -265,8 +284,8 @@ async function main() {
       }
     }
   } finally {
-  fermerSaisie();
+    fermerSaisie();
   }
 }
 
-main();
+main(); //permet de lancer toute l'application
